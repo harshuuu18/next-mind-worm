@@ -1,5 +1,13 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import nc from "next-connect";
+import InitDb from "@/helpers/Db";
+import { onError } from "@/helpers/ncOpt";
 
-export default function handler(req, res) {
-  res.status(200).json({ name: 'John Doe' })
-}
+const handler = nc({ onError: onError });
+
+handler.use(InitDb);
+
+handler.get(async (req, res) => {
+  res.send("hi");
+});
+
+export default handler;
